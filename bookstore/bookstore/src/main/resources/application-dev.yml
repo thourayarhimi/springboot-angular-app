@@ -1,0 +1,50 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5431/book_social_network
+    username: postgres
+    password: rhimi
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      #ddl-auto: update  create-drop
+      ddl-auto: create-drop
+    show-sql: false
+    properties:
+      hibernate:
+        format_sql: true
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+
+  mail:
+    host: localhost
+    port: 1025
+    username: thouraya
+    password: rhimi
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+          trust: "*"
+          connectiontimeout: 5000
+          timeout: 3000
+          writetimeout: 5000
+
+application:
+  security:
+    jwt:
+      #secret-key: thouraya
+      secret-key: VGhvdXJheWFTdXBlclNlY3JldEtleUZvckpXVDEyMzQ1Ng==
+      expiration: 8640000
+  mailing:
+    frontend:
+      activation-url: http://localhost:4200/activate-account
+  file:
+    upload:
+      photos-output-path: ./uploads
+
+server:
+  port: 8088
+

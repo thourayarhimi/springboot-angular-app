@@ -1,0 +1,38 @@
+services:
+  postgres:
+    container_name: postgres-sql-bsn
+    image: postgres
+    environment:
+      POSTGRES_USER: username
+      POSTGRES_PASSWORD: password
+      PGDATA: /var/lib/postgresql/data
+      POSTGRES_DB: book_social_network
+    # Modified the volume to fix the "local driver" issue on Windows
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    networks:
+      - spring-pfe
+    restart: unless-stopped
+
+  mail-dev:
+    container_name: mail-dev-bsn
+    image: maildev/maildev
+    ports:
+      - 1080:1080
+      - 1025:1025
+
+networks:
+  spring-pfe:
+    driver: bridge
+
+volumes:
+  # Fully modified this section
+  postgres_data:
+    driver: local  # specifies using the local driver
+    driver_opts:
+      type: none
+      # Set the folder on your machine to store Postgres data
+      device: C:/Users/Prive/Desktop/PFE/bookstore/postgres_data
+      o: bind  # binds the local path to the container volume
